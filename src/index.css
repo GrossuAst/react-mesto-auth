@@ -74,3 +74,11 @@
 @import url(./blocks/popup/__fullscreen-container/popup__fullscreen-container.css);
 @import url(./blocks/popup/__fullscreen-image/popup__fullscreen-image.css);
 @import url(./blocks/popup/__fullscreen-title/popup__fullscreen-title.css);
+
+/* стили роутов авторизации */
+@import url(./blocks/auth-form/auth-form.css);
+@import url(./blocks/auth-form/input-place/auth-form__input-place.css);
+@import url(./blocks/auth-form/__input/auth-form__input.css);
+@import url(./blocks/auth-form/__title/auth-form__title.css);
+@import url(./blocks/auth-form/__submit-button/auth-form__submit-button.css);
+@import url(./blocks/auth-form/__link/auth-form__link.css);

@@ -1,4 +1,5 @@
 import React from "react";
+import { Routes, Route, Navigate } from 'react-router-dom';
 
 // компоненты
 import Header from "./Header";
@@ -9,6 +10,12 @@ import ImagePopup from "./ImagePopup";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
+
+// компоненты авторизации
+import Login from "./Login";
+import Register from "./Register";
+import InfoTooltip from "./InfoTooltip";
+import ProtectedRoute from "./ProtectedRoute";
 
 // апи
 import { api } from "../utils/api";
@@ -136,14 +143,36 @@ function App() {
     setDeleteCardPopupVisible(false);
   }
 
+  // авторизация_________________
+  const [isLoggedIn, setLoggedIn] = React.useState(false);
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className='wrapper'>
         <div className="content">
 
-          <Header />
+          <Header isLoggedIn={isLoggedIn}/>
 
-          <Main
+          <Routes>
+            {/* для регистрации пользователя */}
+            <Route path="/sign-up" element={<Register />}/>
+            {/* для авторизации */}
+            <Route path="/sign-in" element={<Login />} />
+            <Route path="/" 
+              element={
+              <Main 
+                cards={cards} 
+                onEditProfile={handleEditProfileClick}
+                onAddPlace={handleAddPlaceClick}
+                onEditAvatar={handleEditAvatarClick}
+                onCardClick={handleCardClick}
+                // onDeleteButtonClick={handleDeleteCardClick}
+                onCardLike={handleCardLike}
+                onCardDelete={handleCardDelete}
+              />} />
+          </Routes>
+
+          {/* <Main
             cards={cards}
             onEditProfile={handleEditProfileClick}
             onAddPlace={handleAddPlaceClick}
@@ -152,7 +181,7 @@ function App() {
             // onDeleteButtonClick={handleDeleteCardClick}
             onCardLike={handleCardLike}
             onCardDelete={handleCardDelete}
-          />
+          /> */}
 
           <Footer />
 
@@ -177,31 +206,6 @@ function App() {
             onClose={closeAllPopups}
             onAddPlace={handleAddPlaceSubmit}
           />
-
-          {/* <PopupWithForm 
-            name='add-card'
-            isOpen={isAddPlacePopupOpen}
-            title='Новое место'
-            buttonText='Сохранить'
-            onClose={closeAllPopups}
-          >
-            <input 
-              name="title"
-              placeholder="Название"
-              className="popup__input"
-            />
-            <span 
-              className="popup__error"
-            />
-            <input 
-              name="link"
-              placeholder="Ссылка на картинку"
-              className="popup__input"
-            />
-            <span 
-              className="popup__error"
-            />
-          </PopupWithForm> */}
 
           <ImagePopup 
             card={selectedCard}

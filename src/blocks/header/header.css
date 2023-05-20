@@ -2,7 +2,11 @@
     border-bottom: 1px solid rgba(84, 84, 84, 0.7);
     min-height: 74px;
     max-width: 880px;
-    /* flex: 0 0 auto; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+    color: #FFFFFF;
 }
 
 @media screen and (max-width:770px) {
