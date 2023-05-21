@@ -145,7 +145,11 @@ function App() {
   }
 
   // авторизация_________________
-  const [isLoggedIn, setLoggedIn] = React.useState(true);
+  const [isLoggedIn, setLoggedIn] = React.useState(false);
+
+  function handleLoggedIn() {
+    setLoggedIn(true)
+  }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -174,7 +178,7 @@ function App() {
             <Route path="/sign-up" element={<Register />}/>
 
             {/* для авторизации */}
-            <Route path="/sign-in" element={<Login />} />
+            <Route path="/sign-in" element={<Login onLoggedIn={handleLoggedIn} />} />
 
             {/* мейн блок. LoggedIn === true? тода отрисовать мейн, иначе - отправить на /sign-in */}
             <Route path="/" element={isLoggedIn ? 
