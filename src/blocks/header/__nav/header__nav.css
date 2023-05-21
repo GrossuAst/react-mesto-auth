@@ -1,0 +1,5 @@
+.header__nav {
+    display: flex;
+    max-width: 300px;
+    gap: 24px;
+}

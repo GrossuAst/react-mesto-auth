@@ -2,7 +2,7 @@ import React from "react";
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 // компоненты
-import Header from "./Header";
+// import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
 import PopupWithForm from "./PupupWithForm";
@@ -22,6 +22,7 @@ import { api } from "../utils/api";
 
 // импорт контекста
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import Header from "./Header";
 
 function App() {
 
@@ -144,22 +145,39 @@ function App() {
   }
 
   // авторизация_________________
-  const [isLoggedIn, setLoggedIn] = React.useState(false);
+  const [isLoggedIn, setLoggedIn] = React.useState(true);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className='wrapper'>
         <div className="content">
 
-          <Header isLoggedIn={isLoggedIn}/>
+          {/* <Header isLoggedIn={isLoggedIn}/> */}
 
           <Routes>
+
+            <Route path="/" element={<ProtectedRoute isLoggedIn={isLoggedIn} 
+              element={() => <Main
+                cards={cards} 
+                onEditProfile={handleEditProfileClick}
+                onAddPlace={handleAddPlaceClick}
+                onEditAvatar={handleEditAvatarClick}
+                onCardClick={handleCardClick}
+                // onDeleteButtonClick={handleDeleteCardClick}
+                onCardLike={handleCardLike}
+                onCardDelete={handleCardDelete} 
+              />} 
+              />} 
+            />         
+
             {/* для регистрации пользователя */}
             <Route path="/sign-up" element={<Register />}/>
+
             {/* для авторизации */}
             <Route path="/sign-in" element={<Login />} />
-            <Route path="/" 
-              element={
+
+            {/* мейн блок. LoggedIn === true? тода отрисовать мейн, иначе - отправить на /sign-in */}
+            <Route path="/" element={isLoggedIn ? 
               <Main 
                 cards={cards} 
                 onEditProfile={handleEditProfileClick}
@@ -168,8 +186,17 @@ function App() {
                 onCardClick={handleCardClick}
                 // onDeleteButtonClick={handleDeleteCardClick}
                 onCardLike={handleCardLike}
-                onCardDelete={handleCardDelete}
-              />} />
+                onCardDelete={handleCardDelete} 
+              /> 
+            : <Navigate to='/sign-in' replace />} />
+
+            <Route path='*' element={
+              <>
+                <Header></Header>
+                <p style={{minHeight: "calc(100vh - 313px)", textAlign: 'center', fontSize: '24px'}}>Такой страницы не существует</p>
+              </>
+            } />
+            
           </Routes>
 
           {/* <Main
@@ -207,11 +234,13 @@ function App() {
             onAddPlace={handleAddPlaceSubmit}
           />
 
+          {/* открытая карточка */}
           <ImagePopup 
             card={selectedCard}
             onClose={closeAllPopups}
           />
 
+          {/* попап удаления карточки */}
           <PopupWithForm
             name='delete-card'
             isOpen={isDeleteCardPopupOpen}

@@ -5,7 +5,7 @@ function Header(props) {
     return (
         <header className="header">
             <img src={headerLogo} alt="Логотип страницы" className="header__logo" />
-            <a className='header__auth-text'>{props.isLoggedIn ? 'Войти' : 'Регистрация'}</a>
+            {props.children}
         </header>
     );
   }
