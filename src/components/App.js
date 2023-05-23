@@ -146,9 +146,14 @@ function App() {
 
   // авторизация_________________
   const [isLoggedIn, setLoggedIn] = React.useState(false);
+  const [userEmail, setUserEmail] = React.useState(null);
 
-  function handleLoggedIn() {
-    setLoggedIn(true)
+  function handleLoggedIn(res) {
+    setLoggedIn(true);
+  }
+
+  function handleEmailChange(email) {
+    setUserEmail(email);
   }
 
   return (
@@ -169,7 +174,8 @@ function App() {
                 onCardClick={handleCardClick}
                 // onDeleteButtonClick={handleDeleteCardClick}
                 onCardLike={handleCardLike}
-                onCardDelete={handleCardDelete} 
+                onCardDelete={handleCardDelete}
+                userEmail={userEmail}
               />} 
               />} 
             />         
@@ -178,7 +184,7 @@ function App() {
             <Route path="/sign-up" element={<Register />}/>
 
             {/* для авторизации */}
-            <Route path="/sign-in" element={<Login onLoggedIn={handleLoggedIn} />} />
+            <Route path="/sign-in" element={<Login onLoggedIn={handleLoggedIn} handleEmailChange={handleEmailChange} />} />
 
             {/* мейн блок. LoggedIn === true? тода отрисовать мейн, иначе - отправить на /sign-in */}
             <Route path="/" element={isLoggedIn ? 

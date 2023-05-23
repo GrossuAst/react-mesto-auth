@@ -4,7 +4,7 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import Card from './Card';
 import Header from './Header';
 
-function Main({cards, onEditProfile, onAddPlace, onEditAvatar, onCardClick, onDeleteButtonClick, onCardLike, onCardDelete}) {
+function Main({cards, onEditProfile, onAddPlace, onEditAvatar, onCardClick, onDeleteButtonClick, onCardLike, onCardDelete, userEmail}) {
 
     // подписка на контекст
     const currentUser = React.useContext(CurrentUserContext);
@@ -13,7 +13,7 @@ function Main({cards, onEditProfile, onAddPlace, onEditAvatar, onCardClick, onDe
         <>
             <Header>
                 <div className='header__nav'>
-                    <p className='header__auth-text'>email@mail.com</p>
+                    <p className='header__auth-text'>{userEmail}</p>
                     <p className='header__auth-text_type_exit'>Выйти</p>
                 </div>
             </Header>

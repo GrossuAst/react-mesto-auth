@@ -4,7 +4,9 @@ import { useNavigate } from "react-router-dom";
 import Header from "./Header";
 import * as auth from '../auth.js';
 
-function Login({onLoggedIn}) {
+function Login({onLoggedIn, handleEmailChange}) {
+
+    // console.log(onChangeUserEmail)
 
     const [formValue, setFormValue] = React.useState({
         password: '',
@@ -25,12 +27,16 @@ function Login({onLoggedIn}) {
     function handleSubmit(evt) {
         evt.preventDefault();
         auth.authorize(formValue.password, formValue.email)
-        .then(() => {
-            onLoggedIn();
+        .then((res) => {
+            onLoggedIn(res);
             navigate('/');
+        auth.tokenValidate(res.token)
+        .then((data) => {
+            handleEmailChange(data.data.email)
+        })
         })
         .catch((err) => {
-            console.log(err)
+            console.log(err);
         })
     }
 

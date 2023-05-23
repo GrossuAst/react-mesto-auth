@@ -28,7 +28,24 @@ export function authorize(password, email) {
     })
     .then((res) => {
         if(res.ok) {
-            return res.json;
+            return res.json();
+        }
+        
+        return Promise.reject(`Ошибка ${res.status}`);
+    })
+}
+
+export function tokenValidate(jwt) {
+    return fetch(`${BASE_URL}/users/me`, {
+        method: 'GET',
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization" : `Bearer ${jwt}`
+        }
+    })
+    .then((res) => {
+        if(res.ok) {
+            return res.json();
         }
         return Promise.reject(`Ошибка ${res.status}`);
     })
