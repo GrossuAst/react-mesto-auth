@@ -10,6 +10,7 @@
 @import url(./blocks/header/header.css);
 @import url(./blocks/header/__logo/header__logo.css);
 @import url(./blocks/header/__nav/header__nav.css);
+@import url(./blocks/header/__auth-text/header__auth-text.css);
 
 /* class main */
 @import url(./blocks/main/main.css);
@@ -48,6 +49,7 @@
 @import url(./blocks/popup/popup.css);
 @import url(./blocks/popup/_opened/popup_opened.css);
 @import url(./blocks/popup/__container/popup__container.css);
+@import url(./blocks/popup/_type/_tooltip/popup_type_tooltip.css);
 
 @import url(./blocks/popup/__container/_type/popup__container_type_delete-card.css);
 @import url(./blocks/popup/__submit-button/_type/popup__submit-button_type_delete-card.css);
@@ -62,6 +64,7 @@
 /* кнопка + кнопка выключенная */
 @import url(./blocks/popup/__submit-button/popup__submit-button.css);
 @import url(./blocks/popup/__submit-button/_disabled/popup__submit-button_disabled.css);
+@import url(./blocks/popup/__image/popup__image.css);
 
 /* инпутп с ошбкой */
 @import url(./blocks/popup/__input/_type/popup__input_type_error.css);
@@ -83,3 +86,4 @@
 @import url(./blocks/auth-form/__title/auth-form__title.css);
 @import url(./blocks/auth-form/__submit-button/auth-form__submit-button.css);
 @import url(./blocks/auth-form/__link/auth-form__link.css);
+@import url(./blocks/auth-form/__text/auth-form__text.css);

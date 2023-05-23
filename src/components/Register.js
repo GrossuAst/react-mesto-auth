@@ -1,10 +1,10 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 import Header from "./Header";
 import * as auth from '../auth.js';
 
-function Register() {
+function Register({onTooltipOpen, setRegStatus}) {
 
     const [formValue, setFormValue] = React.useState({
         password: '',
@@ -28,15 +28,18 @@ function Register() {
         auth.register(formValue.password, formValue.email)
         .then(() => {
             navigate('/sign-in');
+            onTooltipOpen(true);
+            setRegStatus(true);
         })
         .catch((err) => {
-            console.log((err))
+            onTooltipOpen(true);
+            setRegStatus(false);
         })
         }
 
     return(
         <>
-            <Header><p className='header__auth-text'>Войти</p></Header>
+            <Header><Link className='header__auth-text' to='/sign-in'>Войти</Link></Header>
             {/* адрес компонента в браузере '/sign-up' */}
             <form className="auth-form" onSubmit={handleSubmit}>
                 <p className="auth-form__title">Регистрация</p>
@@ -48,6 +51,7 @@ function Register() {
                         name="email"
                         type="email"
                         placeholder='Email'
+                        required
                     />
                     <input className="auth-form__input"
                         value={formValue.password}
@@ -56,11 +60,11 @@ function Register() {
                         name="password"
                         type="password"
                         placeholder='Пароль'
+                        required
                     />
                 </div>
-                
                 <button className="auth-form__submit-button" type="submit">Зарегистрироваться</button>
-                <p className="auth-form__link">Уже зарегестрированы? Войти</p>
+                <p className="auth-form__text">Уже зарегестрированы?<Link className="auth-form__link" to='/sign-in'> Войти</Link></p>
             </form>
         </>
     ) 

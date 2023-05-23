@@ -1,5 +1,6 @@
 import React from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import { Link } from 'react-router-dom';
 // import { api } from '../utils/api';
 import Card from './Card';
 import Header from './Header';
@@ -13,8 +14,8 @@ function Main({cards, onEditProfile, onAddPlace, onEditAvatar, onCardClick, onDe
         <>
             <Header>
                 <div className='header__nav'>
-                    <p className='header__auth-text'>{userEmail}</p>
-                    <p className='header__auth-text_type_exit'>Выйти</p>
+                    <p >{userEmail}</p>
+                    <Link className='header__auth-text' to='/sign-in'>Выйти</Link>
                 </div>
             </Header>
             <main className="main">

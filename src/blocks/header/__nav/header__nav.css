@@ -2,4 +2,5 @@
     display: flex;
     max-width: 300px;
     gap: 24px;
+    align-items: center;
 }

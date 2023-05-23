@@ -1,19 +1,17 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 import Header from "./Header";
 import * as auth from '../auth.js';
 
-function Login({onLoggedIn, handleEmailChange}) {
+function Login({onLoggedIn, handleEmailChange, onTooltipOpen}) {
 
-    // console.log(onChangeUserEmail)
+    const navigate = useNavigate();
 
     const [formValue, setFormValue] = React.useState({
         password: '',
         email: ''
     });
-
-    const navigate = useNavigate();
 
     function handleChange(evt) {
         const { name, value } = evt.target;
@@ -21,7 +19,6 @@ function Login({onLoggedIn, handleEmailChange}) {
             ...formValue,
             [name]: value
         })
-        console.log(evt.target.value)
     }
 
     function handleSubmit(evt) {
@@ -36,13 +33,13 @@ function Login({onLoggedIn, handleEmailChange}) {
         })
         })
         .catch((err) => {
-            console.log(err);
+            onTooltipOpen(true);
         })
     }
 
     return(
         <>
-            <Header formValue ><p className='header__auth-text'>Регистрация</p></Header>
+            <Header formValue ><Link className='header__auth-text' to='/sign-up' >Регистрация</Link></Header>
             {/* находится на /sign-in */}
             <form className="auth-form" onSubmit={handleSubmit}>
                 <p className="auth-form__title">Вход</p>
@@ -54,6 +51,7 @@ function Login({onLoggedIn, handleEmailChange}) {
                         name="email"
                         type="email"
                         placeholder='Email'
+                        required
                     />
                     <input className="auth-form__input" 
                         onChange={handleChange}
@@ -62,6 +60,7 @@ function Login({onLoggedIn, handleEmailChange}) {
                         name="password"
                         type="password"
                         placeholder='Пароль'
+                        required
                     />
                 </div>
                 

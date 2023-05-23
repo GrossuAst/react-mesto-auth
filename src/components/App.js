@@ -30,10 +30,11 @@ function App() {
   const [isAddPlacePopupOpen, setAddPlacePopupVisible] = React.useState(false);
   const [isEditAvatarPopupOpen, setAvatarPopupVisible] = React.useState(false);
   const [isDeleteCardPopupOpen, setDeleteCardPopupVisible] = React.useState(false);
+  const [isInfoTooltipOpen, setInfoTooltipVisible] = React.useState(false);
+
   const [selectedCard, setSelectedCard] = React.useState();
-
+  const [regStatus, setRegStatus] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({});
-
   const [cards, setCardsArray] = React.useState([]);
 
   // рендер данных при открытии страницы
@@ -142,6 +143,7 @@ function App() {
     setAvatarPopupVisible(false);
     setSelectedCard();
     setDeleteCardPopupVisible(false);
+    setInfoTooltipVisible(false);
   }
 
   // авторизация_________________
@@ -181,10 +183,10 @@ function App() {
             />         
 
             {/* для регистрации пользователя */}
-            <Route path="/sign-up" element={<Register />}/>
+            <Route path="/sign-up" element={<Register onTooltipOpen={setInfoTooltipVisible} setRegStatus={setRegStatus} />}/>
 
             {/* для авторизации */}
-            <Route path="/sign-in" element={<Login onLoggedIn={handleLoggedIn} handleEmailChange={handleEmailChange} />} />
+            <Route path="/sign-in" element={<Login onLoggedIn={handleLoggedIn} handleEmailChange={handleEmailChange} onTooltipOpen={setInfoTooltipVisible} />} />
 
             {/* мейн блок. LoggedIn === true? тода отрисовать мейн, иначе - отправить на /sign-in */}
             <Route path="/" element={isLoggedIn ? 
@@ -209,18 +211,13 @@ function App() {
             
           </Routes>
 
-          {/* <Main
-            cards={cards}
-            onEditProfile={handleEditProfileClick}
-            onAddPlace={handleAddPlaceClick}
-            onEditAvatar={handleEditAvatarClick}
-            onCardClick={handleCardClick}
-            // onDeleteButtonClick={handleDeleteCardClick}
-            onCardLike={handleCardLike}
-            onCardDelete={handleCardDelete}
-          /> */}
-
           <Footer />
+
+          <InfoTooltip 
+            regStatus={regStatus}
+            isOpen={isInfoTooltipOpen}
+            onClose={closeAllPopups}
+          />
 
           {/* попап аватарки */}
           <EditAvatarPopup 
