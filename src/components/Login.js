@@ -25,11 +25,14 @@ function Login({onLoggedIn, handleEmailChange, onTooltipOpen}) {
         evt.preventDefault();
         auth.authorize(formValue.password, formValue.email)
         .then((res) => {
+            setFormValue({password: '', email: ''});
             onLoggedIn(res);
             navigate('/');
+            // console.log(res);
+            localStorage.setItem('jwt', res.token);
         auth.tokenValidate(res.token)
-        .then((data) => {
-            handleEmailChange(data.data.email)
+        .then((res) => {
+            handleEmailChange(res.data.email);
         })
         })
         .catch((err) => {

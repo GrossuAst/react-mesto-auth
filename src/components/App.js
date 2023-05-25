@@ -1,5 +1,6 @@
 import React from "react";
 import { Routes, Route, Navigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 // компоненты
 // import Header from "./Header";
@@ -12,6 +13,7 @@ import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 
 // компоненты авторизации
+import * as auth from '../auth.js';
 import Login from "./Login";
 import Register from "./Register";
 import InfoTooltip from "./InfoTooltip";
@@ -36,6 +38,8 @@ function App() {
   const [regStatus, setRegStatus] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCardsArray] = React.useState([]);
+
+  const navigate = useNavigate();
 
   // рендер данных при открытии страницы
   React.useEffect(() => {
@@ -150,6 +154,25 @@ function App() {
   const [isLoggedIn, setLoggedIn] = React.useState(false);
   const [userEmail, setUserEmail] = React.useState(null);
 
+  // если в локальном хранилище валидный токен => залогинить пользователя и отправить в мейн страницу
+  function checkToken() {
+    const jwt = localStorage.getItem('jwt');
+    auth.tokenValidate(jwt)
+    .then((data) => {
+      if(data) {
+        setLoggedIn(true);
+        navigate('/', {replace: true});
+      } else {
+        setLoggedIn(false);
+        navigate('/sign-in', {replace: true})
+      }
+    })
+  }
+
+  React.useEffect(() => {
+    checkToken();
+  }, []);
+
   function handleLoggedIn(res) {
     setLoggedIn(true);
   }
@@ -178,6 +201,7 @@ function App() {
                 onCardLike={handleCardLike}
                 onCardDelete={handleCardDelete}
                 userEmail={userEmail}
+                setLoggedIn={setLoggedIn}
               />} 
               />} 
             />         

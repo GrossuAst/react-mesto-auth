@@ -1,21 +1,28 @@
 import React from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
-import { Link } from 'react-router-dom';
-// import { api } from '../utils/api';
+import { Link, useNavigate } from 'react-router-dom';
 import Card from './Card';
 import Header from './Header';
 
-function Main({cards, onEditProfile, onAddPlace, onEditAvatar, onCardClick, onDeleteButtonClick, onCardLike, onCardDelete, userEmail}) {
+function Main({cards, onEditProfile, onAddPlace, onEditAvatar, onCardClick, onDeleteButtonClick, onCardLike, onCardDelete, userEmail, setLoggedIn}) {
 
     // подписка на контекст
     const currentUser = React.useContext(CurrentUserContext);
+
+    const navigate = useNavigate();
+
+    function signOut() {
+        localStorage.removeItem('jwt');
+        setLoggedIn(false);
+        navigate('/', {replace: true});
+    }
     
     return (
         <>
             <Header>
                 <div className='header__nav'>
                     <p >{userEmail}</p>
-                    <Link className='header__auth-text' to='/sign-in'>Выйти</Link>
+                    <Link className='header__auth-text' to='/sign-in'onClick={signOut}>Выйти</Link>
                 </div>
             </Header>
             <main className="main">
