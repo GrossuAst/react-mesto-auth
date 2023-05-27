@@ -6,12 +6,12 @@ import * as auth from '../auth.js';
 
 function Register({onTooltipOpen, setRegStatus}) {
 
+    const navigate = useNavigate();
+
     const [formValue, setFormValue] = React.useState({
         password: '',
         email: ''
     });
-
-    const navigate = useNavigate();
 
     function handleChange(evt) {
         const { name, value } = evt.target;
@@ -19,7 +19,7 @@ function Register({onTooltipOpen, setRegStatus}) {
             ...formValue,
             [name]: value
         })
-        console.log(evt.target.value)
+        // console.log(evt.target.value)
     }
 
     // запрос на регистрацию

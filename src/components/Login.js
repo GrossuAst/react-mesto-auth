@@ -30,12 +30,13 @@ function Login({onLoggedIn, handleEmailChange, onTooltipOpen}) {
             navigate('/');
             // console.log(res);
             localStorage.setItem('jwt', res.token);
-        auth.tokenValidate(res.token)
-        .then((res) => {
-            handleEmailChange(res.data.email);
-        })
+        // auth.tokenValidate(res.token)
+        // .then((res) => {
+        //     handleEmailChange(res.data.email);
+        // })
         })
         .catch((err) => {
+            // console.log(err);
             onTooltipOpen(true);
         })
     }

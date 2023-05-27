@@ -34,15 +34,20 @@ function App() {
   const [isDeleteCardPopupOpen, setDeleteCardPopupVisible] = React.useState(false);
   const [isInfoTooltipOpen, setInfoTooltipVisible] = React.useState(false);
 
-  const [selectedCard, setSelectedCard] = React.useState();
+  const [selectedCard, setSelectedCard] = React.useState(null);
   const [regStatus, setRegStatus] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCardsArray] = React.useState([]);
+
+  // авторизация_________________
+  const [isLoggedIn, setLoggedIn] = React.useState(false);
+  const [userEmail, setUserEmail] = React.useState(null);
 
   const navigate = useNavigate();
 
   // рендер данных при открытии страницы
   React.useEffect(() => {
+    if(isLoggedIn === true) {
     Promise.all([api.getInfoAboutUser(), api.getInitialCards()])
     .then(([userInfo, cards]) => {
       setCurrentUser(userInfo);
@@ -50,8 +55,9 @@ function App() {
     })
     .catch((err) => {
       console.log(`ошибка ${err}`);
-    })
-  }, []);
+    })};
+    return;
+  }, [isLoggedIn]);
 
   //обновление данных профиля 
   function handleUpdateUser(currentUser) {
@@ -150,9 +156,7 @@ function App() {
     setInfoTooltipVisible(false);
   }
 
-  // авторизация_________________
-  const [isLoggedIn, setLoggedIn] = React.useState(false);
-  const [userEmail, setUserEmail] = React.useState(null);
+  
 
   // если в локальном хранилище валидный токен => залогинить пользователя и отправить в мейн страницу
   function checkToken() {
@@ -162,6 +166,7 @@ function App() {
       if(data) {
         setLoggedIn(true);
         navigate('/', {replace: true});
+        handleEmailChange(data.data.email);
       } else {
         setLoggedIn(false);
         navigate('/sign-in', {replace: true})
@@ -171,7 +176,7 @@ function App() {
 
   React.useEffect(() => {
     checkToken();
-  }, []);
+  }, [isLoggedIn]);
 
   function handleLoggedIn(res) {
     setLoggedIn(true);
