@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Card from './Card';
 import Header from './Header';
 
-function Main({cards, onEditProfile, onAddPlace, onEditAvatar, onCardClick, onDeleteButtonClick, onCardLike, onCardDelete, userEmail, setLoggedIn}) {
+function Main({cards, onEditProfile, onAddPlace, onEditAvatar, onCardClick, onDeleteButtonClick, onCardLike, onCardDelete, setLoggedIn, handleEmailClear, userEmail}) {
 
     // подписка на контекст
     const currentUser = React.useContext(CurrentUserContext);
@@ -15,6 +15,7 @@ function Main({cards, onEditProfile, onAddPlace, onEditAvatar, onCardClick, onDe
         localStorage.removeItem('jwt');
         setLoggedIn(false);
         navigate('/', {replace: true});
+        handleEmailClear(null);
     }
     
     return (

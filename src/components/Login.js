@@ -28,6 +28,8 @@ function Login({onLoggedIn, handleEmailChange, onTooltipOpen}) {
             setFormValue({password: '', email: ''});
             onLoggedIn(res);
             navigate('/');
+            handleEmailChange(formValue.email);
+            // console.log(formValue.email);
             // console.log(res);
             localStorage.setItem('jwt', res.token);
         // auth.tokenValidate(res.token)

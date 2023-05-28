@@ -156,8 +156,6 @@ function App() {
     setInfoTooltipVisible(false);
   }
 
-  
-
   // если в локальном хранилище валидный токен => залогинить пользователя и отправить в мейн страницу
   function checkToken() {
     const jwt = localStorage.getItem('jwt');
@@ -186,6 +184,12 @@ function App() {
     setUserEmail(email);
   }
 
+  function handleEmailClear() {
+    setUserEmail(null);
+  }
+
+  // console.log(userEmail);
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className='wrapper'>
@@ -205,8 +209,9 @@ function App() {
                 // onDeleteButtonClick={handleDeleteCardClick}
                 onCardLike={handleCardLike}
                 onCardDelete={handleCardDelete}
-                userEmail={userEmail}
                 setLoggedIn={setLoggedIn}
+                handleEmailClear={handleEmailClear}
+                userEmail={userEmail}
               />} 
               />} 
             />         
@@ -227,7 +232,7 @@ function App() {
                 onCardClick={handleCardClick}
                 // onDeleteButtonClick={handleDeleteCardClick}
                 onCardLike={handleCardLike}
-                onCardDelete={handleCardDelete} 
+                onCardDelete={handleCardDelete}             
               /> 
             : <Navigate to='/sign-in' replace />} />
 
