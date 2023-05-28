@@ -176,7 +176,7 @@ function App() {
 
   React.useEffect(() => {
     checkToken();
-  }, [isLoggedIn]);
+  }, []);
 
   function handleLoggedIn(res) {
     setLoggedIn(true);
